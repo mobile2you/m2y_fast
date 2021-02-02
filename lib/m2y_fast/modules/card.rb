@@ -52,7 +52,7 @@ module M2yFast
       client = get_client
       xml = XmlBuilder.activate_card_xml(card_id, trace)
       response = client.call(:ativacao_cartao, xml: xml)
-      XmlResponseParser.block_card_response(response.body)
+      XmlResponseParser.activate_card_response(response.body)
     end
 
     def self.check_card(card_id)

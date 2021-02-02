@@ -31,8 +31,14 @@ Or install it yourself as:
 M2yFast.configure do |config|
   config.username  = 'xxxx'
   config.password = 'xxxx'
+  config.cnpj = 'xxxx'
+  config.proxy = 'xxxx'
+  config.proxy_user = 'xxxx'
+  config.proxy_pass = 'xxxx'
+  config.proxy_port = 'xxxx'
 end
 ```
+
 
 ## Development
 

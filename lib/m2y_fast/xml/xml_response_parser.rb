@@ -25,6 +25,17 @@ module M2yFast
       end
     end
 
+
+    def self.activate_card_response(json)
+      begin
+        xml_str = json[:ativacao_cartao_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        {error: codigo_retorno != 0, code: codigo_retorno}
+      rescue
+        {error: true}
+      end
+    end
+
     def self.check_card_response(json)
       # p json
       begin

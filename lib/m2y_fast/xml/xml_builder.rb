@@ -89,7 +89,7 @@ module M2yFast
     def self.activate_card_xml(card_id, trace)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
-            <bloqueio_cartao xmlns='http://WSGServ/'>
+            <ativacao_cartao xmlns='http://WSGServ/'>
                 <versao xmlns=''>#{XML_VERSION}</versao>
                 <cod_input xmlns=''>p</cod_input>
                 <datahora xmlns=''>#{DateTime.now.strftime('%m%d%H%M%S')}</datahora>
@@ -99,7 +99,7 @@ module M2yFast
                 <usuario xmlns=''>#{DEFAULT_USER}</usuario>
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
-            </bloqueio_cartao>
+            </ativacao_cartao>
         </Body>
       </Envelope>"
     end
