@@ -104,6 +104,26 @@ module M2yFast
       </Envelope>"
     end
 
+    def self.check_card_xml(card_id, trace)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <Retorna_Status xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <cod_input xmlns=''>p</cod_input>
+                <datahora xmlns=''>#{DateTime.now.strftime('%m%d%H%M%S')}</datahora>
+                <trace xmlns=''>#{trace}</trace>
+                <proxy xmlns=''>#{card_id}</proxy>
+                <cartao xmlns=''>#{card_id}</cartao>
+                <usuario xmlns=''>#{DEFAULT_USER}</usuario>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </Retorna_Status>
+        </Body>
+      </Envelope>"
+    end
+
+
+
     def self.validate_password_xml(card_id, password, trace)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>

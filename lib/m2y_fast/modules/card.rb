@@ -55,6 +55,13 @@ module M2yFast
       XmlResponseParser.block_card_response(response.body)
     end
 
+    def self.check_card(card_id)
+      client = get_client
+      xml = XmlBuilder.check_card_xml(card_id, trace)
+      response = client.call(:retorna_status, xml: xml)
+      XmlResponseParser.check_card_response(response.body)
+    end
+
 
     def self.trace
       rand(100000..999999)
