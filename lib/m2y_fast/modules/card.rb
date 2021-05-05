@@ -25,6 +25,12 @@ module M2yFast
       XmlResponseParser.request_card_response(response.body, body)
     end
 
+    def self.register_password(card_id, encrypted_password)
+      client = get_client
+      xml = XmlBuilder.register_password_xml(card_id, encrypted_password, trace)
+      response = client.call(:cadastra_senha_cert, xml: xml)
+      XmlResponseParser.register_password_response(response.body)
+    end
 
     def self.block_card(card_id)
       client = get_client
@@ -47,7 +53,6 @@ module M2yFast
       XmlResponseParser.update_password_response(response.body)
     end
 
-
     def self.activate_card(card_id)
       client = get_client
       xml = XmlBuilder.activate_card_xml(card_id, trace)
@@ -62,10 +67,8 @@ module M2yFast
       XmlResponseParser.check_card_response(response.body)
     end
 
-
     def self.trace
       rand(100000..999999)
     end
-
   end
 end
