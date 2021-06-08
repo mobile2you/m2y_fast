@@ -17,6 +17,20 @@ module M2yFast
       )
     end
 
+    def self.get_user_registration(card_id)
+      client = get_client
+      xml = XmlBuilder.get_user_registration_xml(card_id)
+      response = client.call(:dados_gral_portador, xml: xml)
+      XmlResponseParser.get_user_registration_response(response.body)
+    end
+
+    def self.update_user_registration(body)
+      client = get_client
+      xml = XmlBuilder.update_user_registration_xml(body)
+      response = client.call(:alteracao_portador2, xml: xml)
+      XmlResponseParser.update_user_registration_response(response.body)
+    end
+
     def self.request_card(body)
       client = get_client
       body[:proxy] = Time.now.to_i.to_s
