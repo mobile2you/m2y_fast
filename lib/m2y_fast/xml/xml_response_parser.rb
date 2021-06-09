@@ -33,7 +33,14 @@ module M2yFast
         error = (card.blank? || (codigo_retorno != 0 && codigo_retorno != 1000))
         return { card_id: nil, account_id: nil, error: true, code: codigo_retorno } if error
 
-        { card_id: body[:proxy], card: card, account_id: account_id, card_date: card_date, error: card.blank? }
+        {
+          card_id: body[:proxy],
+          card: card,
+          account_id: account_id,
+          card_date: card_date,
+          registration: body[:registration],
+          error: card.blank?
+        }
       rescue
         { card_id: nil, account_id: nil, error: true }
       end

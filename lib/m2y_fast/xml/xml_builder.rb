@@ -19,6 +19,7 @@ module M2yFast
     end
 
     def self.update_user_registration_xml(body)
+      registration = body[:registration].blank? ? Time.now.to_i : body[:registration]
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
          <Body>
             <alteracao_portador2 xmlns='http://WSGServ/'>
@@ -58,7 +59,7 @@ module M2yFast
                 <numero_conta xmlns=''></numero_conta>
                 <nome_empregador xmlns=''>#{COMPANY}</nome_empregador>
                 <cod_empregador xmlns=''>#{COMPANY_CODE}</cod_empregador>
-                <matricula xmlns=''>#{Time.now.to_i}</matricula>
+                <matricula xmlns=''>#{registration}</matricula>
                 <cargo xmlns=''>#{JOB}</cargo>
                 <data_admissao xmlns=''>20150405</data_admissao>
                 <salario xmlns=''>#{body[:salary].to_i}</salario>
@@ -81,7 +82,7 @@ module M2yFast
                 <cod_plastico xmlns=''>#{CARD_DESIGN}</cod_plastico>
                 <cod_empregador xmlns=''>#{COMPANY_CODE}</cod_empregador>
                 <nome_empregador xmlns=''>#{COMPANY}</nome_empregador>
-                <matricula xmlns=''>#{Time.now.to_i}</matricula>
+                <matricula xmlns=''>#{body[:registration]}</matricula>
                 <cargo xmlns=''>#{JOB}</cargo>
                 <data_admissao xmlns=''>20150405</data_admissao>
                 <salario xmlns=''>#{body[:salary].to_i}</salario>
