@@ -3,6 +3,26 @@
 module M2yFast
   class XmlBuilder
 
+    ### CARDHOLDER ###
+
+    def self.get_cardholder_xml(body)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <consulta_portador xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <cod_input xmlns=''>p</cod_input>
+                <cartao xmlns=''>#{body[:card_id]}</cartao>
+                <proxy xmlns=''>#{body[:card_id]}</proxy>
+                <cpf xmlns=''>#{body[:cpf]}</cpf>
+                <senha xmlns=''>#{body[:password]}</senha>
+                <emissor xmlns=''>#{ISSUER}</emissor>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </consulta_portador>
+        </Body>
+      </Envelope>"
+    end
+
     def self.get_user_registration_xml(card_id)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
@@ -69,6 +89,8 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    ### CARD ###
 
     def self.request_card_xml(body)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
@@ -241,6 +263,26 @@ module M2yFast
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
             </alterar_senha>
+        </Body>
+      </Envelope>"
+    end
+
+    def self.check_cvv_xml(body, trace)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <verifica_cvv_cert xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <cod_input xmlns=''>p</cod_input>
+                <cartao xmlns=''>#{body[:card_id]}</cartao>
+                <proxy xmlns=''>#{body[:card_id]}</proxy>
+                <datahora xmlns=''>#{DateTime.now.strftime('%m%d%H%M%S')}</datahora>
+                <trace xmlns=''>#{trace}</trace>
+                <dt_validade xmlns=''>#{body[:expiration_date]}</dt_validade>
+                <cvv xmlns=''>#{body[:cvv]}</cvv>
+                <usuario xmlns=''>#{DEFAULT_USER}</usuario>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </verifica_cvv_cert>
         </Body>
       </Envelope>"
     end

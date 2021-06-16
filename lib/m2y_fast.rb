@@ -1,6 +1,7 @@
 require 'm2y_fast/configuration/configuration'
 require 'm2y_fast/constants/constants'
 require 'm2y_fast/modules/card'
+require 'm2y_fast/modules/cardholder'
 require 'm2y_fast/xml/xml_builder'
 require 'm2y_fast/xml/xml_response_parser'
 

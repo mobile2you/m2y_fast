@@ -3,6 +3,18 @@
 module M2yFast
   class XmlResponseParser
 
+    ### CARDHOLDER ###
+
+    def self.get_cardholder_response(json)
+      begin
+        xml_str = json[:consulta_portador_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        { error: codigo_retorno != 0, code: codigo_retorno }
+      rescue
+        { error: true }
+      end
+    end
+
     def self.get_user_registration_response(json)
       begin
         xml_str = json[:dados_gral_portador_response][:return]
@@ -22,6 +34,8 @@ module M2yFast
         { error: true }
       end
     end
+
+    ### CARD ###
 
     def self.request_card_response(json, body)
       begin
@@ -102,6 +116,18 @@ module M2yFast
     def self.validate_password_response(json)
       begin
         xml_str = json[:verifica_senha_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+        error = (codigo_retorno != 0 || cod_ret != 0)
+        { error: error, code: codigo_retorno }
+      rescue
+        { error: true }
+      end
+    end
+
+    def self.check_cvv_response(json)
+      begin
+        xml_str = json[:verifica_cvv_cert_response][:return]
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
         cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
         error = (codigo_retorno != 0 || cod_ret != 0)

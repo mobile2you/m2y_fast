@@ -17,24 +17,10 @@ module M2yFast
       )
     end
 
-    def self.get_user_registration(card_id)
-      client = get_client
-      xml = XmlBuilder.get_user_registration_xml(card_id)
-      response = client.call(:dados_gral_portador, xml: xml)
-      XmlResponseParser.get_user_registration_response(response.body)
-    end
-
-    def self.update_user_registration(body)
-      client = get_client
-      xml = XmlBuilder.update_user_registration_xml(body)
-      response = client.call(:alteracao_portador2, xml: xml)
-      XmlResponseParser.update_user_registration_response(response.body)
-    end
-
     def self.request_card(body)
       client = get_client
       body[:registration] = Time.now.to_i
-      body[:proxy] = registration.to_s
+      body[:proxy] = body[:registration].to_s
       xml = XmlBuilder.request_card_xml(body)
       response = client.call(:cadastro_cartao_geral, xml: xml)
       XmlResponseParser.request_card_response(response.body, body)
@@ -80,6 +66,13 @@ module M2yFast
       xml = XmlBuilder.check_card_xml(card_id, trace)
       response = client.call(:retorna_status, xml: xml)
       XmlResponseParser.check_card_response(response.body)
+    end
+
+    def self.check_cvv(body)
+      client = get_client
+      xml = XmlBuilder.check_cvv_xml(body, trace)
+      response = client.call(:verifica_cvv_cert, xml: xml)
+      XmlResponseParser.check_cvv_response(response.body)
     end
 
     def self.trace
