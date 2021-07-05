@@ -12,8 +12,8 @@ module M2yFast
         proxy: M2yFast.configuration.proxy_url,
         log_level: :debug,
         pretty_print_xml: true,
-        open_timeout: 25,
-        read_timeout: 25
+        open_timeout: 15,
+        read_timeout: 15
       )
     end
 
