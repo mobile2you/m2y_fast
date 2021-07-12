@@ -12,8 +12,8 @@ module M2yFast
         proxy: M2yFast.configuration.proxy_url,
         log_level: :debug,
         pretty_print_xml: true,
-        open_timeout: 25,
-        read_timeout: 25
+        open_timeout: 15,
+        read_timeout: 15
       )
     end
 
@@ -47,9 +47,10 @@ module M2yFast
       XmlResponseParser.validate_password_response(response.body)
     end
 
-    def self.update_password(card_id, new_password, old_password)
+    def self.update_password(body)
       client = get_client
-      xml = XmlBuilder.validate_password_xml(card_id, new_password, old_password, trace)
+      body[:trace] = trace
+      xml = XmlBuilder.update_password_xml(body)
       response = client.call(:alterar_senha, xml: xml)
       XmlResponseParser.update_password_response(response.body)
     end
@@ -73,6 +74,13 @@ module M2yFast
       xml = XmlBuilder.check_cvv_xml(body, trace)
       response = client.call(:verifica_cvv_cert, xml: xml)
       XmlResponseParser.check_cvv_response(response.body)
+    end
+
+    def self.card_limit(card_id)
+      client = get_client
+      xml = XmlBuilder.card_limit_xml(card_id)
+      response = client.call(:consulta_disponivel, xml: xml)
+      XmlResponseParser.card_limit_response(response.body)
     end
 
     def self.trace
