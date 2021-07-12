@@ -108,7 +108,7 @@ module M2yFast
                 <cargo xmlns=''>#{JOB}</cargo>
                 <data_admissao xmlns=''>20150405</data_admissao>
                 <salario xmlns=''>#{body[:salary].to_i}</salario>
-                <limite_credito xmlns=''>#{(body[:salary] * 0.5).to_i}</limite_credito>
+                <limite_credito xmlns=''>0</limite_credito>
                 <embossadora xmlns=''>#{EMBOSSING}</embossadora>
                 <logo xmlns=''>#{CARD_LOGO}</logo>
                 <nome_completo xmlns=''>#{body[:name]}</nome_completo>
@@ -247,18 +247,18 @@ module M2yFast
       </Envelope>"
     end
 
-    def self.update_password_xml(card_id, new_password, old_password, trace)
+    def self.update_password_xml(body)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
             <alterar_senha xmlns='http://WSGServ/'>
                 <versao xmlns=''>#{XML_VERSION}</versao>
                 <cod_input xmlns=''>p</cod_input>
                 <datahora xmlns=''>#{DateTime.now.strftime('%m%d%H%M%S')}</datahora>
-                <trace xmlns=''>#{trace}</trace>
-                <proxy xmlns=''>#{card_id}</proxy>
-                <cartao xmlns=''>#{card_id}</cartao>
-                <senha_atual xmlns=''>#{old_password}</senha_atual>
-                <nova_senha xmlns=''>#{new_password}</nova_senha>
+                <trace xmlns=''>#{body[:trace]}</trace>
+                <proxy xmlns=''>#{body[:card_id]}</proxy>
+                <cartao xmlns=''>#{body[:card_id]}</cartao>
+                <senha_atual xmlns=''>#{body[:old_password]}</senha_atual>
+                <nova_senha xmlns=''>#{body[:new_password]}</nova_senha>
                 <usuario xmlns=''>#{DEFAULT_USER}</usuario>
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
@@ -283,6 +283,21 @@ module M2yFast
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
             </verifica_cvv_cert>
+        </Body>
+      </Envelope>"
+    end
+
+    def self.card_limit_xml(card_id)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <consulta_disponivel xmlns='http://WSGServ/'>
+            <versao xmlns=''>#{XML_VERSION}</versao>
+            <cod_input xmlns=''>p</cod_input>
+            <cartao xmlns=''>#{card_id}</cartao>
+            <proxy xmlns=''>#{card_id}</proxy>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </consulta_disponivel>
         </Body>
       </Envelope>"
     end

@@ -74,7 +74,9 @@ module M2yFast
       begin
         xml_str = json[:bloqueio_cartao_response][:return]
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
-        {error: codigo_retorno != 0, code: codigo_retorno}
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+        error = (codigo_retorno != 0 || cod_ret != 0)
+        {error: error, code: codigo_retorno}
       rescue
         {error: true}
       end
@@ -96,8 +98,15 @@ module M2yFast
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
         status = xml_str.split("<status>").last.split("</status>").first
         desc_status = xml_str.split("<desc_status>").last.split("</desc_status>").first
+        card_number = xml_str.split("<cartao>").last.split("</cartao>").first
 
-        {error: codigo_retorno != 0, code: codigo_retorno, desc_status: desc_status, status: status}
+        {
+          error: codigo_retorno != 0,
+          code: codigo_retorno,
+          desc_status: desc_status,
+          status: status,
+          card_number: card_number
+        }
       rescue
         {error: true}
       end
@@ -131,7 +140,37 @@ module M2yFast
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
         cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
         error = (codigo_retorno != 0 || cod_ret != 0)
-        { error: error, code: codigo_retorno }
+        {
+          error: error,
+          code: codigo_retorno,
+          data_error_code: cod_ret
+        }
+      rescue
+        { error: true }
+      end
+    end
+
+    def self.card_limit_response(json)
+      begin
+        xml_str = json[:consulta_disponivel_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        limit = xml_str.split("<limite_credito>").last.split("</limite_credito>").first.to_f
+        available_for_withdrawal = xml_str.split("<disponivel_saques>").last.split("</disponivel_saques>").first.to_f
+        available_for_shopping = xml_str.split("<disponivel_compras>").last.split("</disponivel_compras>").first.to_f
+        balance = xml_str.split("<saldo_atual>").last.split("</saldo_atual>").first.to_f
+        blocked_value = xml_str.split("<bloqueio_judicial>").last.split("</bloqueio_judicial>").first.to_f
+        cardholder_name = xml_str.split("<nome>").last.split("</nome>").first
+
+        {
+          error: codigo_retorno != 0,
+          code: codigo_retorno,
+          limit: limit,
+          available_for_withdrawal: available_for_withdrawal,
+          available_for_shopping: available_for_shopping,
+          balance: balance,
+          blocked_value: blocked_value,
+          name: cardholder_name
+        }
       rescue
         { error: true }
       end
