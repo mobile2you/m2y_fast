@@ -168,7 +168,7 @@ module M2yFast
           available_for_withdrawal: available_for_withdrawal,
           available_for_shopping: available_for_shopping,
           balance: balance,
-          blocked_value: blocked_value
+          blocked_value: blocked_value,
           name: cardholder_name
         }
       rescue
