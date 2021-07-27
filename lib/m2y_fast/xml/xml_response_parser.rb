@@ -116,7 +116,9 @@ module M2yFast
       begin
         xml_str = json[:alterar_senha_response][:return]
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
-        {error: codigo_retorno != 0, code: codigo_retorno}
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+        error = (codigo_retorno != 0 || cod_ret != 0)
+        {error: error, code: codigo_retorno}
       rescue
         {error: true}
       end
