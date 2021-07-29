@@ -302,5 +302,20 @@ module M2yFast
       </Envelope>"
     end
 
+    def self.recall_password_xml(card_id)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <retorna_pin_cert xmlns='http://WSGServ/'>
+            <versao xmlns=''>#{XML_VERSION}</versao>
+            <cod_input xmlns=''>p</cod_input>
+            <cartao xmlns=''>#{card_id}</cartao>
+            <proxy xmlns=''>#{card_id}</proxy>
+            <usuario xmlns=''>#{DEFAULT_USER}</usuario>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </retorna_pin_cert>
+        </Body>
+      </Envelope>"
+    end
   end
 end

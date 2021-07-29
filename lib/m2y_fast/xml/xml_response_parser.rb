@@ -178,5 +178,23 @@ module M2yFast
       end
     end
 
+    def self.recall_password_response(json)
+      begin
+        xml_str = json[:retorna_pin_cert_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        error = (codigo_retorno != 0 || cod_ret != 0)
+        card_number = xml_str.split("<cartao>").last.split("</cartao>").first
+        card_password = xml_str.split("<senha>").last.split("</senha>").first
+        {
+          error: error,
+          code: codigo_retorno,
+          card_number: card_number,
+          card_password: card_password
+        }
+      rescue
+        { error: true }
+      end
+    end
+
   end
 end
