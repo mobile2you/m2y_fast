@@ -83,6 +83,13 @@ module M2yFast
       XmlResponseParser.card_limit_response(response.body)
     end
 
+    def self.recall_password(card_id)
+      client = get_client
+      xml = XmlBuilder.recall_password_xml(card_id, trace)
+      response = client.call(:retorna_pin_cert, xml: xml)
+      XmlResponseParser.recall_password_response(response.body)
+    end
+
     def self.trace
       rand(100000..999999)
     end
