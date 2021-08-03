@@ -3,7 +3,7 @@
 module M2yFast
   class Configuration
 
-    attr_writer :username, :password, :cnpj, :proxy, :proxy_user, :proxy_pass, :proxy_port, :env
+    attr_writer :username, :password, :cnpj, :proxy, :proxy_user, :proxy_pass, :proxy_port, :env, :wsdl
 
     def initialize #:nodoc:
       @username = nil
@@ -12,6 +12,8 @@ module M2yFast
       @proxy = nil
       @proxy_user = nil
       @proxy_pass = nil
+      @env = nil
+      @wsdl = nil
     end
 
     def username
@@ -42,17 +44,20 @@ module M2yFast
       @proxy_port
     end
 
-    def proxy_url
-      "http://#{proxy_user}:#{proxy_pass}@#{proxy}:#{proxy_port}"
-    end
-
     def env
       @env
     end
 
     def wsdl
-      env == "prd" ? WSDL_PRD : WSDL_HMG
+      @wsdl
     end
 
+    def production?
+      env.to_s.upcase == 'PRD'
+    end
+
+    def proxy_url
+      "http://#{proxy_user}:#{proxy_pass}@#{proxy}:#{proxy_port}" if !production?
+    end
   end
 end

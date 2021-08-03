@@ -10,7 +10,7 @@ module M2yFast
         wsdl: M2yFast.configuration.wsdl,
         log: true,
         proxy: M2yFast.configuration.proxy_url,
-        log_level: :debug,
+        log_level: M2yFast.configuration.production? ? :info : :debug,
         pretty_print_xml: true,
         open_timeout: 15,
         read_timeout: 15
