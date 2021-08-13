@@ -319,5 +319,23 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    def self.update_limit_xml(body)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <alterar_limite xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <cod_input xmlns=''>p</cod_input>
+                <proxy xmlns=''>#{body[:card_id]}</proxy>
+                <cartao xmlns=''>#{body[:card_id]}</cartao>
+                <limite xmlns=''>#{body[:credit_value]}</limite>
+                <observacao xmlns=''></observacao>
+                <usuario xmlns=''>#{DEFAULT_USER}</usuario>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </alterar_limite>
+        </Body>
+      </Envelope>"
+    end
   end
 end

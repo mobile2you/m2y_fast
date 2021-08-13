@@ -183,15 +183,29 @@ module M2yFast
         xml_str = json[:retorna_pin_cert_response][:return]
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
         cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
-        error = (codigo_retorno != 0 || cod_ret != 0)
         card_number = xml_str.split("<cartao>").last.split("</cartao>").first
         card_password = xml_str.split("<senha>").last.split("</senha>").first
         {
-          error: error,
+          error: (codigo_retorno != 0 || cod_ret != 0),
           code: codigo_retorno,
           data_error_code: cod_ret,
           card_number: card_number,
           card_password: card_password
+        }
+      rescue
+        { error: true }
+      end
+    end
+
+    def self.update_limit_response(json)
+      begin
+        xml_str = json[:alterar_limite_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+
+        {
+          error: (codigo_retorno != 0 || cod_ret != 0),
+          code: codigo_retorno
         }
       rescue
         { error: true }
