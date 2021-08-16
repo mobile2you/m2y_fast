@@ -90,6 +90,13 @@ module M2yFast
       XmlResponseParser.recall_password_response(response.body)
     end
 
+    def self.update_limit(body)
+      client = get_client
+      xml = XmlBuilder.update_limit_xml(body)
+      response = client.call(:alterar_limite, xml: xml)
+      XmlResponseParser.update_limit_response(response.body)
+    end
+
     def self.trace
       rand(100000..999999)
     end
