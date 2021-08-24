@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module M2yFast
-  class InvoiceXmlResponseParser
+  class StatementXmlResponseParser
     # consulta_faturas
-    def self.get_invoices_response(json)
+    def self.get_statement_response(json)
       begin
         xml_str = json[:consulta_faturas_response][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
@@ -11,7 +11,7 @@ module M2yFast
         {
           error: return_code != 0,
           code: return_code,
-          invoices: parsed_hash.dig(:consulta_faturas, :row) || []
+          statement: parsed_hash.dig(:consulta_faturas, :row) || []
         }
       rescue
         { error: true }
@@ -38,7 +38,7 @@ module M2yFast
     end
 
     # consulta_detalhe_fatura
-    def self.get_invoice_items_response(json)
+    def self.get_statement_detail_xml_response(json)
       begin
         xml_str = json[:consulta_detalhe_fatura_response][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!

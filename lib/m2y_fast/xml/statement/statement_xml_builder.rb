@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 module M2yFast
-  class InvoiceXmlBuilder
+  class StatementXmlBuilder
 
     # consulta_faturas
-    def self.get_invoices_xml(fast_account)
+    def self.get_statement_xml(fast_account)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
             <consulta_faturas xmlns='http://WSGServ/'>
@@ -43,7 +43,7 @@ module M2yFast
     end
 
     # consulta_detalhe_fatura
-    def self.get_invoice_items_xml(fast_account, period)
+    def self.get_statement_detail_xml(fast_account, period)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
             <consulta_detalhe_fatura xmlns='http://WSGServ/'>
