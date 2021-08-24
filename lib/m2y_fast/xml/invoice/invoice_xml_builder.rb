@@ -41,5 +41,25 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    # consulta_detalhe_fatura
+    def self.get_invoice_items_xml(fast_account, period)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <consulta_detalhe_fatura xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <emissor xmlns=''>#{ISSUER}</emissor>
+                <produto xmlns=''>#{PRODUCT}</produto>
+                <filial xmlns=''>#{COMPANY_BRANCH}</filial>
+                <numero_conta xmlns=''>#{fast_account}</numero_conta>
+                <periodo xmlns=''>#{period}</periodo>
+                <page xmlns=''>1</page>
+                <page_length xmlns=''>100</page_length>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </consulta_detalhe_fatura>
+        </Body>
+      </Envelope>"
+    end
   end
 end
