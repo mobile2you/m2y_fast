@@ -9,7 +9,13 @@ module M2yFast
       full_response(InvoiceXmlResponseParser.get_invoices_response(response.body), xml, response.body)
     end
 
-    def self.get_current_invoice
+    # consulta_fatura_aberta
+    # Obs: paginacao foi desabilitada pela Fast
+    def self.get_current_invoice(fast_account)
+      client = get_client
+      xml = InvoiceXmlBuilder.get_current_invoice_xml(fast_account)
+      response = client.call(:consulta_fatura_aberta, xml: xml)
+      full_response(InvoiceXmlResponseParser.get_current_invoice_response(response.body), xml, response.body)
     end
 
     def self.get_invoice_itens
