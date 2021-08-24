@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Caio Lopes"]
   spec.email         = ["caio.lopes@mobile2you.com.br"]
 
-  spec.summary       = %q{CellCoin Gem}
-  spec.description   = %q{CellCoin Gem}
+  spec.summary       = %q{Fast Gem}
+  spec.description   = %q{Fast Gem}
   spec.homepage      = "http://www.mobile2you.com.br"
   spec.license       = "MIT"
 
@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_runtime_dependency "openssl"
   spec.add_runtime_dependency "savon"
+  spec.add_runtime_dependency 'activesupport', '~> 6.1.3.1'
 end

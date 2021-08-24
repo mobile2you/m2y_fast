@@ -1,6 +1,7 @@
 module M2yFast
   require 'savon'
   require 'digest/md5'
+  require 'active_support/core_ext'
 
   class Base
     def self.get_client
