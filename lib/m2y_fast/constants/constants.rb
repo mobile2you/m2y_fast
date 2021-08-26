@@ -5,6 +5,7 @@ module M2yFast
   ISSUER = 36
   PRODUCT = 88
   DELIVERER = 58
+  COMPANY_BRANCH = 1
   CARD_TYPE = '02'
   CARD_DESIGN = '02'
   CARD_LOGO = '1'
