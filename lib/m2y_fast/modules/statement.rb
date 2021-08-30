@@ -26,5 +26,13 @@ module M2yFast
       response = client.call(:consulta_detalhe_fatura, xml: xml)
       full_response(StatementXmlResponseParser.get_statement_detail_xml_response(response.body), xml, response.body)
     end
+
+    # gera_boleto
+    def self.get_statement_billet(fast_account, period)
+      client = get_client
+      xml = StatementXmlBuilder.get_statement_billet_xml(fast_account, period)
+      response = client.call(:gera_boleto, xml: xml)
+      full_response(StatementXmlResponseParser.get_statement_billet_xml_response(response.body), xml, response.body)
+    end
   end
 end
