@@ -73,8 +73,8 @@ module M2yFast
                   <filial xmlns=''>#{COMPANY_BRANCH}</filial>
                   <numero_conta xmlns=''>#{fast_account}</numero_conta>
                   <periodo xmlns=''>#{period}</periodo>
-                  <usr xmlns="">#{M2yFast.configuration.username}</usr>
-                  <pwd xmlns="">#{M2yFast.configuration.password}</pwd>
+                  <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                  <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
               </gera_boleto>
           </Body>
       </Envelope>"
