@@ -61,5 +61,23 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    # gera_boleto
+    def self.get_statement_billet_xml(fast_account, period)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+          <Body>
+              <gera_boleto xmlns='http://WSGServ/'>
+                  <versao xmlns=''>#{XML_VERSION}</versao>
+                  <emissor xmlns=''>#{ISSUER}</emissor>
+                  <produto xmlns=''>#{PRODUCT}</produto>
+                  <filial xmlns=''>#{COMPANY_BRANCH}</filial>
+                  <numero_conta xmlns=''>#{fast_account}</numero_conta>
+                  <periodo xmlns=''>#{period}</periodo>
+                  <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                  <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+              </gera_boleto>
+          </Body>
+      </Envelope>"
+    end
   end
 end

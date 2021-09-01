@@ -53,5 +53,27 @@ module M2yFast
         { error: true }
       end
     end
+
+    # gera_boleto
+    def self.get_statement_billet_xml_response(json)
+      begin
+        xml_str = json[:gera_boleto_response][:return]
+        parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
+        return_code = parsed_hash[:codigo_retorno].to_i
+        billet = parsed_hash.dig(:gera_boleto, :row) || []
+        billet = billet.first if billet.is_a?(Array)
+
+        {
+          error: return_code != 0,
+          code: return_code,
+          expiration_date: billet[:dt_vencimento],
+          digitable_line: billet[:retorno_ld],
+          value: billet[:saldo],
+          minimum_payment: billet[:pgto_minimo]
+        }
+      rescue
+        { error: true }
+      end
+    end
   end
 end
