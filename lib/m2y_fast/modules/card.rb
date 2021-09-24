@@ -19,7 +19,7 @@ module M2yFast
 
     def self.request_card(body)
       client = get_client
-      body[:registration] = Time.now.to_i
+      body[:registration] = (Time.now.to_i.to_s + Random.rand(999).to_s).to_i
       body[:proxy] = body[:registration].to_s
       xml = XmlBuilder.request_card_xml(body)
       response = client.call(:cadastro_cartao_geral, xml: xml)

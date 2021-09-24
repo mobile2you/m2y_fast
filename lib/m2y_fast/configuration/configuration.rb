@@ -57,7 +57,7 @@ module M2yFast
     end
 
     def proxy_url
-      "http://#{proxy_user}:#{proxy_pass}@#{proxy}:#{proxy_port}" if !production?
+      "http://#{proxy_user}:#{proxy_pass}@#{proxy}:#{proxy_port}"
     end
   end
 end
