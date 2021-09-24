@@ -33,9 +33,8 @@ M2yFast.configure do |config|
   config.password = 'xxxx'
   config.cnpj = 'xxxx'
   config.proxy = 'xxxx'
-  config.proxy_user = 'xxxx'
-  config.proxy_pass = 'xxxx'
-  config.proxy_port = 'xxxx'
+  config.env = 'xxxx'
+  config.wsdl = 'xxxx'
 end
 ```
 

@@ -9,7 +9,7 @@ module M2yFast
       Savon.client(
         wsdl: M2yFast.configuration.wsdl,
         log: true,
-        proxy: M2yFast.configuration.proxy_url,
+        proxy: M2yFast.configuration.proxy,
         log_level: M2yFast.configuration.production? ? :info : :debug,
         pretty_print_xml: true,
         open_timeout: 15,
