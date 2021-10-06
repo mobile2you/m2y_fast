@@ -97,6 +97,14 @@ module M2yFast
       XmlResponseParser.update_limit_response(response.body)
     end
 
+    # melhor_dia_para_compras
+    def self.best_day_for_shopping(card_id)
+      client = get_client
+      xml = XmlBuilder.best_day_for_shopping_xml(card_id)
+      response = client.call(:melhor_dia_para_compras, xml: xml)
+      XmlResponseParser.best_day_for_shopping_response(response.body)
+    end
+
     def self.trace
       rand(100000..999999)
     end

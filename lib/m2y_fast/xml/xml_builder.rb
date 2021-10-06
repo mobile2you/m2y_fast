@@ -337,5 +337,21 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    # melhor_dia_para_compras
+    def self.best_day_for_shopping_xml(card_id)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+            <melhor_dia_para_compras xmlns='http://WSGServ/'>
+                <versao xmlns=''>#{XML_VERSION}</versao>
+                <cod_input xmlns=''>p</cod_input>
+                <proxy xmlns=''>#{card_id}</proxy>
+                <cartao xmlns=''>#{card_id}</cartao>
+                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            </melhor_dia_para_compras>
+        </Body>
+      </Envelope>"
+    end
   end
 end

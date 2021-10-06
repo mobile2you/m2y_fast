@@ -16,6 +16,10 @@ module M2yFast
       )
     end
 
+    def self.trace
+      rand(100000..999999)
+    end
+
     def self.full_response(parsed_response, request, original_response)
       parsed_response = { body: parsed_response } if parsed_response.is_a?(Array)
       parsed_response = {} unless parsed_response.is_a?(Hash)
