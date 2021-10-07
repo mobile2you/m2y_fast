@@ -212,5 +212,21 @@ module M2yFast
       end
     end
 
+    # melhor_dia_para_compras
+    def self.best_day_for_shopping_response(json)
+      begin
+        xml_str = json[:melhor_dia_para_compras_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+
+        {
+          error: (codigo_retorno != 0),
+          code: codigo_retorno,
+          best_day: xml_str.split("<melhor_dia>").last.split("</melhor_dia>").first
+        }
+      rescue
+        { error: true }
+      end
+    end
+
   end
 end
