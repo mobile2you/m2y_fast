@@ -89,5 +89,19 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    # cartoes_cpf
+    def self.account_for_document_xml(cpf)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <cartoes_cpf xmlns='http://WSGServ/'>
+            <cpf xmlns=''>#{cpf}</cpf>
+            <emissor xmlns=''>#{ISSUER}</emissor>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </cartoes_cpf>
+        </Body>
+      </Envelope>"
+    end
   end
 end

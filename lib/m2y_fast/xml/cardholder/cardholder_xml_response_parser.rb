@@ -34,5 +34,25 @@ module M2yFast
         { error: true }
       end
     end
+
+    # cartoes_cpf
+    def self.account_for_document_response(json)
+      begin
+        xml_str = json[:cartoes_cpf_response][:return]
+        parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
+        return_code = parsed_hash[:codigo_retorno].to_i
+
+        account = parsed_hash.dig(:cartoes_cpf, :conta)
+        account = account.first if account.is_a?(Array)
+
+        {
+          error: return_code != 0,
+          code: return_code,
+          account: account
+        }
+      rescue StandardError => e
+        { error: true, message: e.message }
+      end
+    end
   end
 end

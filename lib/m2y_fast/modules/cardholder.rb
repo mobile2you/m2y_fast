@@ -23,5 +23,13 @@ module M2yFast
       response = client.call(:alteracao_portador2, xml: xml)
       full_response(CardholderXmlResponseParser.update_user_registration_response(response.body), xml, response.body)
     end
+
+    # cartoes_cpf
+    def self.account_for_document(cpf)
+      client = get_client
+      xml = CardholderXmlBuilder.account_for_document_xml(cpf)
+      response = client.call(:cartoes_cpf, xml: xml)
+      full_response(CardholderXmlResponseParser.account_for_document_response(response.body), xml, response.body)
+    end
   end
 end
