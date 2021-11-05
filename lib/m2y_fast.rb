@@ -6,6 +6,8 @@ require 'm2y_fast/modules/cardholder'
 require 'm2y_fast/modules/statement'
 require 'm2y_fast/xml/xml_builder'
 require 'm2y_fast/xml/xml_response_parser'
+require 'm2y_fast/xml/cardholder/cardholder_xml_builder'
+require 'm2y_fast/xml/cardholder/cardholder_xml_response_parser'
 require 'm2y_fast/xml/statement/statement_xml_builder'
 require 'm2y_fast/xml/statement/statement_xml_response_parser'
 
