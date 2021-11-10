@@ -124,11 +124,11 @@ module M2yFast
       begin
         xml_str = json[:consulta_disponivel_response][:return]
         codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
-        limit = xml_str.split("<limite_credito>").last.split("</limite_credito>").first.to_f
-        available_for_withdrawal = xml_str.split("<disponivel_saques>").last.split("</disponivel_saques>").first.to_f
-        available_for_shopping = xml_str.split("<disponivel_compras>").last.split("</disponivel_compras>").first.to_f
-        balance = xml_str.split("<saldo_atual>").last.split("</saldo_atual>").first.to_f
-        blocked_value = xml_str.split("<bloqueio_judicial>").last.split("</bloqueio_judicial>").first.to_f
+        limit = xml_str.split("<limite_credito>").last.split("</limite_credito>").first.gsub(',', '.').to_f
+        available_for_withdrawal = xml_str.split("<disponivel_saques>").last.split("</disponivel_saques>").first.gsub(',', '.').to_f
+        available_for_shopping = xml_str.split("<disponivel_compras>").last.split("</disponivel_compras>").first.gsub(',', '.').to_f
+        balance = xml_str.split("<saldo_atual>").last.split("</saldo_atual>").first.gsub(',', '.').to_f
+        blocked_value = xml_str.split("<bloqueio_judicial>").last.split("</bloqueio_judicial>").first.gsub(',', '.').to_f
         cardholder_name = xml_str.split("<nome>").last.split("</nome>").first
 
         {

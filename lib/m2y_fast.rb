@@ -4,12 +4,15 @@ require 'm2y_fast/modules/base'
 require 'm2y_fast/modules/card'
 require 'm2y_fast/modules/cardholder'
 require 'm2y_fast/modules/statement'
+require 'm2y_fast/modules/limit'
 require 'm2y_fast/xml/xml_builder'
 require 'm2y_fast/xml/xml_response_parser'
 require 'm2y_fast/xml/cardholder/cardholder_xml_builder'
 require 'm2y_fast/xml/cardholder/cardholder_xml_response_parser'
 require 'm2y_fast/xml/statement/statement_xml_builder'
 require 'm2y_fast/xml/statement/statement_xml_response_parser'
+require 'm2y_fast/xml/limit/limit_xml_builder'
+require 'm2y_fast/xml/limit/limit_xml_response_parser'
 
 module M2yFast
 
