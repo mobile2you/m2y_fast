@@ -16,6 +16,37 @@ module M2yFast
       )
     end
 
+    def self.fixie
+      URI.parse M2yFast.configuration.proxy
+    end
+
+    def self.base_headers
+      headers = {}
+      headers['Content-Type'] = 'application/json'
+      headers
+    end
+
+    def self.soap_post(body)
+      url = M2yFast.configuration.wsdl.gsub('?wsdl', '')
+      xml_headers = {}
+      xml_headers['Content-Type'] = 'text/xml'
+      xml_headers['charset'] = 'utf-8'
+      post(url, body, xml_headers)
+    end
+
+    def self.post(url, body, headers = nil)
+      if headers.nil?
+        headers = base_headers
+      end
+      puts "Sending POST request to URL: #{url}"
+      puts body
+      HTTParty.post(url, headers: headers, body: body,
+                    http_proxyaddr: fixie.host,
+                    http_proxyport: fixie.port,
+                    http_proxyuser: fixie.user,
+                    http_proxypass: fixie.password)
+    end
+
     def self.trace
       rand(100000..999999)
     end
