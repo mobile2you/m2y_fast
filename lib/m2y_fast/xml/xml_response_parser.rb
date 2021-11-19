@@ -196,5 +196,47 @@ module M2yFast
       end
     end
 
+    # retorna_status + consulta_disponivel
+    def self.card_data_response(status_response, limit_response)
+      status_response = status_response.body.split('<return>').last.split('</return>').first
+
+      response = {
+        desc_status: status_response.split('&lt;desc_status&gt;').last.split('&lt;/desc_status&gt;').first,
+        status: status_response.split('&lt;status&gt;').last.split('&lt;/status&gt;').first,
+        card_number: status_response.split('&lt;cartao&gt;').last.split('&lt;/cartao&gt;').first,
+      }
+
+      if limit_response.present?
+        # Merge with limit data if present
+        limit_response = limit_response.body.split('<return>').last.split('</return>').first
+        codigo_retorno = limit_response.split('&lt;codigo_retorno&gt;').last.split('&lt;/codigo_retorno&gt;').first.to_i
+        response.merge!({
+          error: codigo_retorno != 0,
+          code: codigo_retorno,
+          limit: limit_response.split('&lt;limite_credito&gt;').last.split('&lt;/limite_credito&gt;').first.gsub(',', '.').to_f,
+          available_for_withdrawal: limit_response.split('&lt;disponivel_saques&gt;').last.split('&lt;/disponivel_saques&gt;').first.gsub(',', '.').to_f,
+          available_for_shopping: limit_response.split('&lt;disponivel_compras&gt;').last.split('&lt;/disponivel_compras&gt;').first.gsub(',', '.').to_f,
+          balance: limit_response.split('&lt;saldo_atual&gt;').last.split('&lt;/saldo_atual&gt;').first.gsub(',', '.').to_f,
+          blocked_value: limit_response.split('&lt;bloqueio_judicial&gt;').last.split('&lt;/bloqueio_judicial&gt;').first.gsub(',', '.').to_f,
+          name: limit_response.split('&lt;nome&gt;').last.split('&lt;/nome&gt;').first
+        })
+      else
+        # Returns default values for limit fields if limit call was not needed
+        response.merge!({
+          error: false,
+          code: status_response.split("&lt;codigo_retorno&gt;").last.split("&lt;/codigo_retorno&gt;").first.to_i,
+          limit: 0.0,
+          available_for_withdrawal: 0.0,
+          available_for_shopping: 0.0,
+          balance: 0.0,
+          blocked_value: 0.0,
+          name: ''
+        })
+      end
+      response
+    rescue StandardError
+      { error: true }
+    end
+
   end
 end
