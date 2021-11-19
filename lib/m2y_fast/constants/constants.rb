@@ -1,6 +1,4 @@
 module M2yFast
-  WSDL_HMG = "https://sistemashomol.fastpays.com.br/Zema/WSGServService?wsdl"
-  WSDL_PRD = "https://secure.fastpays.com.br/Zema/WSGServService?wsdl"
   XML_VERSION = 1
   ISSUER = 36
   PRODUCT = 88
