@@ -11,5 +11,15 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    def self.get_pdf_body(id)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <findPDF xmlns='http://webservice.edocsystem.com.br/'>
+            <id xmlns=''>#{id}</id>
+          </findPDF>
+        </Body>
+      </Envelope>"
+    end
   end
 end
