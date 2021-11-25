@@ -40,6 +40,25 @@ module M2yFast
       end
     end
 
+    # consulta_faturas_fechadas
+    def self.get_closed_invoices_response(json)
+      begin
+        xml_str = json[:consulta_faturas_fechadas_response][:return]
+        parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
+        return_code = parsed_hash[:codigo_retorno].to_i
+        statement = parsed_hash.dig(:consulta_faturas_fechadas, :row) || []
+        statement = [statement] if !statement.is_a?(Array)
+
+        {
+          error: return_code != 0,
+          code: return_code,
+          statement: statement
+        }
+      rescue
+        { error: true }
+      end
+    end
+
     # consulta_detalhe_fatura
     def self.get_statement_detail_xml_response(json)
       begin

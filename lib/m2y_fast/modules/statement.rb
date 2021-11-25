@@ -16,6 +16,14 @@ module M2yFast
       full_response(StatementXmlResponseParser.get_current_invoice_response(response.body), xml, response.body)
     end
 
+    # consulta_faturas_fechadas
+    # Obs: paginacao foi desabilitada pela Fast
+    def self.get_closed_invoices(fast_account)
+      xml = StatementXmlBuilder.get_closed_invoices_xml(fast_account)
+      response = M2yFast.configuration.savon_client.call(:consulta_faturas_fechadas, xml: xml)
+      full_response(StatementXmlResponseParser.get_closed_invoices_response(response.body), xml, response.body)
+    end
+
     # consulta_detalhe_fatura
     # Obs: paginacao foi desabilitada pela Fast
     def self.get_statement_detail(fast_account, period)
