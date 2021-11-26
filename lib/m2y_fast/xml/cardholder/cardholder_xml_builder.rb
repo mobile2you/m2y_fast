@@ -74,9 +74,9 @@ module M2yFast
             <celular xmlns=''>#{body[:mobile].gsub(/[^0-9]/, '')}</celular>
             <email xmlns=''>#{body[:email]}</email>
             <usuario xmlns=''>#{DEFAULT_USER}</usuario>
-            <banco xmlns=''></banco>
-            <agencia xmlns=''></agencia>
-            <numero_conta xmlns=''></numero_conta>
+            <banco xmlns=''>#{body[:bank]}</banco>
+            <agencia xmlns=''>#{body[:agency]}</agencia>
+            <numero_conta xmlns=''>#{body[:account]}</numero_conta>
             <nome_empregador xmlns=''>#{COMPANY}</nome_empregador>
             <cod_empregador xmlns=''>#{COMPANY_CODE}</cod_empregador>
             <matricula xmlns=''>#{registration}</matricula>
