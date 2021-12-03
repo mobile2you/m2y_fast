@@ -51,11 +51,12 @@ module M2yFast
       rand(100000..999999)
     end
 
-    def self.full_response(parsed_response, request, original_response)
+    def self.full_response(parsed_response, request, original_response, endpoint = nil)
       parsed_response = { body: parsed_response } if parsed_response.is_a?(Array)
       parsed_response = {} unless parsed_response.is_a?(Hash)
       parsed_response[:original_response] = original_response.to_json
       parsed_response[:original_request] = request
+      parsed_response[:url] = endpoint.to_s
       parsed_response
     end
   end
