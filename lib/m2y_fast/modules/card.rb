@@ -59,25 +59,11 @@ module M2yFast
       full_response(XmlResponseParser.check_cvv_response(response.body), xml, response.body, :verifica_cvv_cert)
     end
 
-    # consulta_disponivel
-    def self.card_limit(card_id)
-      xml = XmlBuilder.card_limit_xml(card_id)
-      response = M2yFast.configuration.savon_client.call(:consulta_disponivel, xml: xml)
-      full_response(XmlResponseParser.card_limit_response(response.body), xml, response.body, :consulta_disponivel)
-    end
-
     # retorna_pin_cert
     def self.recall_password(card_id)
       xml = XmlBuilder.recall_password_xml(card_id, trace)
       response = M2yFast.configuration.savon_client.call(:retorna_pin_cert, xml: xml)
       full_response(XmlResponseParser.recall_password_response(response.body), xml, response.body, :retorna_pin_cert)
-    end
-
-    # alterar_limite
-    def self.update_limit(body)
-      xml = XmlBuilder.update_limit_xml(body)
-      response = M2yFast.configuration.savon_client.call(:alterar_limite, xml: xml)
-      full_response(XmlResponseParser.update_limit_response(response.body), xml, response.body, :alterar_limite)
     end
 
     # melhor_dia_para_compras

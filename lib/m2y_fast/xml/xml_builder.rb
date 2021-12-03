@@ -200,21 +200,6 @@ module M2yFast
       </Envelope>"
     end
 
-    def self.card_limit_xml(card_id)
-      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
-        <Body>
-          <consulta_disponivel xmlns='http://WSGServ/'>
-            <versao xmlns=''>#{XML_VERSION}</versao>
-            <cod_input xmlns=''>p</cod_input>
-            <cartao xmlns=''>#{card_id}</cartao>
-            <proxy xmlns=''>#{card_id}</proxy>
-            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
-            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
-          </consulta_disponivel>
-        </Body>
-      </Envelope>"
-    end
-
     def self.recall_password_xml(card_id, trace)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
@@ -229,24 +214,6 @@ module M2yFast
             <usr xmlns=''>#{M2yFast.configuration.username}</usr>
             <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
           </retorna_pin_cert>
-        </Body>
-      </Envelope>"
-    end
-
-    def self.update_limit_xml(body)
-      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
-        <Body>
-            <alterar_limite xmlns='http://WSGServ/'>
-                <versao xmlns=''>#{XML_VERSION}</versao>
-                <cod_input xmlns=''>p</cod_input>
-                <proxy xmlns=''>#{body[:card_id]}</proxy>
-                <cartao xmlns=''>#{body[:card_id]}</cartao>
-                <limite xmlns=''>#{body[:credit_value]}</limite>
-                <observacao xmlns=''></observacao>
-                <usuario xmlns=''>#{DEFAULT_USER}</usuario>
-                <usr xmlns=''>#{M2yFast.configuration.username}</usr>
-                <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
-            </alterar_limite>
         </Body>
       </Envelope>"
     end
