@@ -95,7 +95,7 @@ module M2yFast
                                 'ENVIADO AO PORTADOR'])
         XmlResponseParser.card_data_response(status_response, nil)
       else
-        limit_response = soap_post(XmlBuilder.card_limit_xml(card_id))
+        limit_response = soap_post(LimitXmlBuilder.card_limit_xml(card_id))
         XmlResponseParser.card_data_response(status_response, limit_response)
       end
     end
