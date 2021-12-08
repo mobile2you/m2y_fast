@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module M2yFast
   class EximiaXmlBuilder
+
+    # findContaDtaVenc
     def self.get_pdf_id_body(fast_account, due_date)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
@@ -12,6 +14,7 @@ module M2yFast
       </Envelope>"
     end
 
+    # findPDF
     def self.get_pdf_body(id)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>

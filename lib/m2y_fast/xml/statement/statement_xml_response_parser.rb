@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module M2yFast
   class StatementXmlResponseParser
+
     # consulta_faturas
     def self.get_statement_response(json)
       begin
