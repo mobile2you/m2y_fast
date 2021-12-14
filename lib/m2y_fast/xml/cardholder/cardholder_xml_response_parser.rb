@@ -54,5 +54,25 @@ module M2yFast
         { error: true, message: e.message }
       end
     end
+
+    # consulta_informacao_portador
+    def self.cards_for_document_response(json)
+      begin
+        xml_str = json[:consulta_informacao_portador_response][:return]
+        parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
+        return_code = parsed_hash[:codigo_retorno].to_i
+
+        cards = parsed_hash.dig(:consulta_informacao_portador, :row) || []
+        cards = [cards] if !cards.is_a?(Array)
+
+        {
+          error: (return_code != 0 && return_code != 14),
+          code: return_code,
+          cards: cards
+        }
+      rescue StandardError => e
+        { error: true, message: e.message }
+      end
+    end
   end
 end
