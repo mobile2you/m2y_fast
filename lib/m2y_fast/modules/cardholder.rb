@@ -29,10 +29,10 @@ module M2yFast
     end
 
     # consulta_informacao_portador
-    def self.cards_for_document(document)
-      xml = CardholderXmlBuilder.cards_for_document_xml(document)
+    def self.card_details_for_document(document)
+      xml = CardholderXmlBuilder.card_details_for_document_xml(document)
       response = M2yFast.configuration.savon_client.call(:consulta_informacao_portador, xml: xml)
-      full_response(CardholderXmlResponseParser.cards_for_document_response(response.body), xml, response.body, :consulta_informacao_portador)
+      full_response(CardholderXmlResponseParser.card_details_for_document_response(response.body), xml, response.body, :consulta_informacao_portador)
     end
   end
 end

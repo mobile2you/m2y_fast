@@ -105,7 +105,7 @@ module M2yFast
     end
 
     # consulta_informacao_portador
-    def self.cards_for_document_xml(document)
+    def self.card_details_for_document_xml(document)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
           <consulta_informacao_portador xmlns='http://WSGServ/'>

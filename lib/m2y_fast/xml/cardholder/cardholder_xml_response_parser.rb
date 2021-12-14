@@ -56,7 +56,7 @@ module M2yFast
     end
 
     # consulta_informacao_portador
-    def self.cards_for_document_response(json)
+    def self.card_details_for_document_response(json)
       begin
         xml_str = json[:consulta_informacao_portador_response][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
