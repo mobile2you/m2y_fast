@@ -91,15 +91,34 @@ module M2yFast
     end
 
     # cartoes_cpf
-    def self.account_for_document_xml(cpf)
+    def self.account_for_document_xml(document)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
           <cartoes_cpf xmlns='http://WSGServ/'>
-            <cpf xmlns=''>#{cpf}</cpf>
+            <cpf xmlns=''>#{document}</cpf>
             <emissor xmlns=''>#{ISSUER}</emissor>
             <usr xmlns=''>#{M2yFast.configuration.username}</usr>
             <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
           </cartoes_cpf>
+        </Body>
+      </Envelope>"
+    end
+
+    # consulta_informacao_portador
+    def self.card_details_for_document_xml(document)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <consulta_informacao_portador xmlns='http://WSGServ/'>
+            <versao xmlns=''>1</versao>
+            <cod_input xmlns=''>d</cod_input>
+            <cartao xmlns=''></cartao>
+            <proxy xmlns=''></proxy>
+            <cpf xmlns=''>#{document}</cpf>
+            <emissor xmlns=''>#{ISSUER}</emissor>
+            <ativo xmlns=''></ativo>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </consulta_informacao_portador>
         </Body>
       </Envelope>"
     end
