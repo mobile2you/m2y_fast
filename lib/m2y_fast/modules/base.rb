@@ -39,7 +39,7 @@ module M2yFast
         headers = base_headers
       end
       puts "Sending POST request to URL: #{url}"
-      puts body
+      # puts body
       HTTParty.post(url, headers: headers, body: body,
                     http_proxyaddr: fixie.host,
                     http_proxyport: fixie.port,
