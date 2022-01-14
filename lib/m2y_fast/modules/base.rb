@@ -38,7 +38,7 @@ module M2yFast
       if headers.nil?
         headers = base_headers
       end
-      puts "Sending POST request to URL: #{url}"
+      # puts "Sending POST request to URL: #{url}"
       # puts body
       HTTParty.post(url, headers: headers, body: body,
                     http_proxyaddr: fixie.host,
