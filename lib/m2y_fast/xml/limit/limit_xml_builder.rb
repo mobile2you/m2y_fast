@@ -36,6 +36,24 @@ module M2yFast
       </Envelope>"
     end
 
+    # consulta_opcao_parcelamento
+    def self.consult_installment_options_xml(card_id, cpf)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <consulta_opcao_parcelamento xmlns='http://WSGServ/'>
+            <versao xmlns=''>#{XML_VERSION}</versao>
+            <cod_input xmlns=''>p</cod_input>
+            <cartao xmlns=''>#{card_id}</cartao>
+            <proxy xmlns=''>#{card_id}</proxy>
+            <cpf xmlns=''>#{cpf}</cpf>
+            <emissor xmlns=''>#{ISSUER}</emissor>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </consulta_opcao_parcelamento>
+        </Body>
+      </Envelope>"
+    end
+
     # gera_autorizacao
     def self.generate_authorization_xml(card_id, value, trace)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>

@@ -44,6 +44,25 @@ module M2yFast
       end
     end
 
+    # consulta_opcao_parcelamento
+    def self.consult_installment_options_response(json)
+      begin
+        xml_str = json[:consulta_opcao_parcelamento_response][:return]
+        parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
+        return_code = parsed_hash[:codigo_retorno].to_i
+        installment_options = parsed_hash.dig(:consulta_opcao_parcelamento, :row) || []
+        installment_options = [installment_options] if !installment_options.is_a?(Array)
+
+        {
+          error: return_code != 0,
+          return_code: return_code,
+          installment_options: installment_options
+        }
+      rescue
+        { error: true }
+      end
+    end
+
     # gera_autorizacao
     def self.generate_authorization_response(json)
       begin
