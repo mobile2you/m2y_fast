@@ -14,6 +14,13 @@ module M2yFast
       full_response(LimitXmlResponseParser.update_limit_response(response.body), xml, response.body, :alterar_limite)
     end
 
+    # consulta_opcao_parcelamento
+    def self.consult_installment_options(card_id, cpf)
+      xml = LimitXmlBuilder.consult_installment_options_xml(card_id, cpf)
+      response = M2yFast.configuration.savon_client.call(:consulta_opcao_parcelamento, xml: xml)
+      full_response(LimitXmlResponseParser.consult_installment_options_response(response.body), xml, response.body, :consulta_opcao_parcelamento)
+    end
+
     # gera_autorizacao
     # cadastra um valor de crédito para o user
     def self.generate_authorization(card_id, value)
