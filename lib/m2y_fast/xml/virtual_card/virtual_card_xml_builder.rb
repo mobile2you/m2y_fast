@@ -1,5 +1,5 @@
 module M2yFast
-  class VirtualCardrXmlBuilder
+  class VirtualCardXmlBuilder
 
     #cadastro_cartao_virtual
     def self.request_virtual_card_xml(body)
@@ -22,7 +22,7 @@ module M2yFast
                 <rg xmlns=''>#{body[:rg]}</rg>
                 <orgao_emissor xmlns=''>#{body[:rg_issuer ]}</orgao_emissor>
                 <estado_emissor_rg xmlns=''>#{body[:rg_state]}</estado_emissor_rg>
-                <nome_pai xmlns=''>#{body[:father_name].upcase}</nome_pai>
+                <nome_pae xmlns=''>#{body[:father_name].upcase}</nome_pae>
                 <nome_mae xmlns=''>#{body[:mother_name].upcase}</nome_mae>
                 <rua xmlns=''>#{body[:street].upcase}</rua>
                 <nro_porta xmlns=''>#{body[:number]}</nro_porta>
@@ -36,7 +36,7 @@ module M2yFast
                 <telefone_comercial xmlns=''>#{body[:phone].gsub(/[^0-9]/, '')}</telefone_comercial>
                 <celular xmlns=''>#{body[:mobile].gsub(/[^0-9]/, '')}</celular>
                 <email xmlns=''>#{body[:email]}</email>
-                <gerar_senha_ativacao xmlns=''>1</gerar_senha_ativacao>
+                <gerar_senha_activacao xmlns=''>1</gerar_senha_activacao>
                 <chip xmlns=''>S</chip>
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>

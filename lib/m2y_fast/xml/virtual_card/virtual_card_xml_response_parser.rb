@@ -4,18 +4,21 @@ module M2yFast
     #cadastro_cartao_virtual
     def self.request_virtual_card_response(json)
       begin
-        xml_str = json[:cadastro_cartao_virtualResponse][:return]
+        xml_str = json[:cadastro_cartao_virtual_response][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
         return_code = parsed_hash[:codigo_retorno].to_i
 
-        virtual_card = parsed_hash.dig(:cadastro_cartao_virtual, :row) || []
-        virtual_card = [virtual_card] if !virtual_card.is_a?(Array)
+        virtual_card = parsed_hash[:cadastro_cartao_virtual]
+        # virtual_card = [virtual_card] if !virtual_card.is_a?(Array)
 
         {
           error: return_code != 0,
           code: return_code,
           virtual_card_number: virtual_card[:cartao],
-          expiration_date: virtual_card[:data_vencimento]
+          # linked_account: virtual_card[:conta],
+          expiration_date: virtual_card[:data_vencimento],
+          embossing_name: virtual_card[:nome_embossing],
+          cvv: virtual_card[:cvv]
 
         }
       rescue
@@ -30,8 +33,8 @@ module M2yFast
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
         return_code = parsed_hash[:codigo_retorno].to_i
 
-        virtual_card = parsed_hash.dig(:cartao_virtual_cert, :row) || []
-        virtual_card = [virtual_card] if !virtual_card.is_a?(Array)
+        virtual_card = parsed_hash[:cartao_virtual_cert]
+        # virtual_card = [virtual_card] if !virtual_card.is_a?(Array)
 
         {
           error: return_code != 0,
