@@ -9,7 +9,7 @@ module M2yFast
     end
 
     #cartao_virtual_cert
-    def show_virtual_card(card_number)
+    def self.show_virtual_card(card_number)
       xml = VirtualCardXmlBuilder.show_virtual_card_xml(card_number)
       response = M2yFast.configuration.savon_client.call(:cartao_virtual_cert, xml: xml)
       full_response(VirtualCardXmlResponseParser.show_virtual_card_response(response.body), xml, response.body, :cartao_virtual_cert)

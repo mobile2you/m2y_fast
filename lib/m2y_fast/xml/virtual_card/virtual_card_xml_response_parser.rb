@@ -27,7 +27,7 @@ module M2yFast
     end
 
     #cartao_virtual_cert
-    def show_virtual_card_response(json)
+    def self.show_virtual_card_response(json)
       begin
         xml_str = json[:cartao_virtual_certResponse][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
