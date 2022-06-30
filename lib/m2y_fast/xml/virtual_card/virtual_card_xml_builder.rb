@@ -44,6 +44,23 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    #segunda_via_cartao_virtual
+    def self.request_aditional_virtual_card_xml(card_number, embossing_name)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+      <Body>
+        <cartao_virtual_cert xmlns='http://WSGServ/'>
+            <versao xmlns=''>#{XML_VERSION}</versao>
+            <cod_input xmlns="">C</cod_input>
+            <cartao xmlns=''>#{card_number}</cartao>
+            <nome_embossado xmlns=''>#{embossing_name}</nome_embossado>
+            <nome_extra xmlns=''></nome_extra>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+        </cartao_virtual_cert>
+        </Body>
+      </Envelope>"
+    end
     
     #cartao_virtual_cert
     def self.show_virtual_card_xml(card_number)
