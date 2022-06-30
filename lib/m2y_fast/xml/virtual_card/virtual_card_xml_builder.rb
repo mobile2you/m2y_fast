@@ -46,7 +46,7 @@ module M2yFast
     end
 
     #segunda_via_cartao_virtual
-    def self.show_virtual_card_xml(card_number, embossing_name)
+    def self.request_aditional_virtual_card_xml(card_number, embossing_name)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
       <Body>
         <cartao_virtual_cert xmlns='http://WSGServ/'>

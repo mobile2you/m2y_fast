@@ -10,7 +10,7 @@ module M2yFast
 
     #segunda_via_cartao_virtual
     def self.request_aditional_virtual_card(card_number, embossing_name)
-      xml = VirtualCardXmlBuilder.request_aditional_virtual_card_xml(body)
+      xml = VirtualCardXmlBuilder.request_aditional_virtual_card_xml(card_number, embossing_name)
       response = M2yFast.configuration.savon_client.call(:segunda_via_cartao_virtual, xml: xml)
       full_response(VirtualCardXmlResponseParser.request_aditional_virtual_card_response(response.body), xml, response.body, :segunda_via_cartao_virtual)
     end
