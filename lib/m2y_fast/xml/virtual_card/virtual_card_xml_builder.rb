@@ -51,12 +51,13 @@ module M2yFast
       <Body>
         <segunda_via_cartao_virtual xmlns='http://WSGServ/'>
             <versao xmlns=''>#{XML_VERSION}</versao>
-            <cod_input xmlns="">C</cod_input>
-            <cartao xmlns=''>#{card_number}</cartao>
+            <cod_input xmlns=''>C</cod_input>
+            <input xmlns=''>#{card_number}</input>
             <nome_embossado xmlns=''>#{embossing_name}</nome_embossado>
             <nome_extra xmlns=''></nome_extra>
             <usr xmlns=''>#{M2yFast.configuration.username}</usr>
             <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+            <chip xmlns=''>S</chip>
         </segunda_via_cartao_virtual>
         </Body>
       </Envelope>"
