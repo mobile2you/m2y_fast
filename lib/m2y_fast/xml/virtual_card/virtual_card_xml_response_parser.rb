@@ -54,7 +54,7 @@ module M2yFast
     #cartao_virtual_cert
     def self.show_virtual_card_response(json)
       begin
-        xml_str = json[:cartao_virtual_certResponse][:return]
+        xml_str = json[:cartao_virtual_cert_response][:return]
         parsed_hash = Hash.from_xml(xml_str)['G_ServApp_Response'].deep_symbolize_keys!
         return_code = parsed_hash[:codigo_retorno].to_i
 
@@ -65,10 +65,9 @@ module M2yFast
           error: return_code != 0,
           code: return_code,
           virtual_card_number: virtual_card[:cartao],
-          expiration_date: virtual_card[:data_vencimento],
+          expiration_date: virtual_card[:data_validade],
           embossing_name: virtual_card[:nome_embossing],
           cvv: virtual_card[:CVC2]
-
         }
       rescue
         { error: true }
