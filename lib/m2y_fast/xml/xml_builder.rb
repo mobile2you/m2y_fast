@@ -87,12 +87,12 @@ module M2yFast
       </Envelope>"
     end
 
-    def self.block_card_xml(card_id, trace)
+    def self.block_card_xml(card_id, trace, cod_input)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
             <bloqueio_cartao xmlns='http://WSGServ/'>
                 <versao xmlns=''>#{XML_VERSION}</versao>
-                <cod_input xmlns=''>p</cod_input>
+                <cod_input xmlns=''>#{cod_input}</cod_input>
                 <datahora xmlns=''>#{DateTime.now.strftime('%m%d%H%M%S')}</datahora>
                 <trace xmlns=''>#{trace}</trace>
                 <proxy xmlns=''>#{card_id}</proxy>
