@@ -27,7 +27,6 @@ module M2yFast
                 <nome_completo xmlns=''>#{body[:name]}</nome_completo>
                 <nome xmlns=''>#{body[:name].split(' ').first.upcase}</nome>
                 <sobrenome xmlns=''>#{body[:name].split(' ').last.upcase}</sobrenome>
-                <nome_social xmlns=''></nome_social>
                 <data_nascimento xmlns=''>#{body[:birth_date]}</data_nascimento>
                 <sexo xmlns=''>#{body[:gender]}</sexo>
                 <estado_civil xmlns=''>#{body[:marital_status]}</estado_civil>
