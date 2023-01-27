@@ -17,8 +17,8 @@ module M2yFast
     end
 
     # bloqueio_cartao
-    def self.block_card(card_id, cod_input)
-      xml = XmlBuilder.block_card_xml(card_id, trace, cod_input)
+    def self.block_card(card_id, cod_input, close_account)
+      xml = XmlBuilder.block_card_xml(card_id, trace, cod_input, close_account)
       response = M2yFast.configuration.savon_client.call(:bloqueio_cartao, xml: xml)
       full_response(XmlResponseParser.block_card_response(response.body), xml, response.body, :bloqueio_cartao)
     end

@@ -86,7 +86,7 @@ module M2yFast
       </Envelope>"
     end
 
-    def self.block_card_xml(card_id, trace, cod_input)
+    def self.block_card_xml(card_id, trace, cod_input, close_account)
       "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
         <Body>
             <bloqueio_cartao xmlns='http://WSGServ/'>
@@ -96,7 +96,7 @@ module M2yFast
                 <trace xmlns=''>#{trace}</trace>
                 <proxy xmlns=''>#{card_id}</proxy>
                 <cartao xmlns=''>#{card_id}</cartao>
-                <status xmlns=''>#{BLOCKED_STATUS}</status>
+                <status xmlns=''>#{close_account ? BLOCKED_STATUS_CANCEL_ACCOUNT : BLOCKED_STATUS}</status>
                 <usuario xmlns=''>#{DEFAULT_USER}</usuario>
                 <usr xmlns=''>#{M2yFast.configuration.username}</usr>
                 <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
