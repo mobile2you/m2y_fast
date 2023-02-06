@@ -99,5 +99,12 @@ module M2yFast
         XmlResponseParser.card_data_response(status_response, limit_response)
       end
     end
+
+    # alterar_vencimento_fatura
+    def self.card_invoice_due_date_change(card_id, cod_due_date)
+      xml = XmlBuilder.change_invoice_due_date(card_id, cod_due_date)
+      response = M2yFast.configuration.savon_client.call(:alterar_vencimento_fatura, xml: xml)
+      full_response(XmlResponseParser.change_invoice_due_date_response(response.body), xml, response.body, :alterar_vencimento_fatura)
+    end
   end
 end

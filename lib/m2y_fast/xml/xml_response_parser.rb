@@ -197,5 +197,16 @@ module M2yFast
       { error: true }
     end
 
+    def self.change_invoice_due_date_response(response)
+      begin
+        xml_str = response[:alterar_vencimento_fatura_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+        error = (codigo_retorno.eql?(0) && cod_ret.eql?(0)) ? false : true
+        {error: error, code: codigo_retorno, cod_ret: cod_ret}
+      rescue
+        {error: true}
+      end
+    end
   end
 end
