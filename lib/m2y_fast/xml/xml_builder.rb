@@ -233,5 +233,22 @@ module M2yFast
         </Body>
       </Envelope>"
     end
+
+    # alterar_vencimento_fatura
+    def self.change_invoice_due_date(card_id, cod_due_date)
+      "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>
+        <Body>
+          <alterar_vencimento_fatura xmlns='http://WSGServ/'>
+            <versao xmlns=''>#{XML_VERSION}</versao>
+            <emissor xmlns=''>#{ISSUER}</emissor>
+            <cod_input xmlns=''>C</cod_input>
+            <input xmlns=''>#{card_id}</input>
+            <cod_venc_factura xmlns=''>#{cod_due_date}</cod_venc_factura>
+            <usr xmlns=''>#{M2yFast.configuration.username}</usr>
+            <pwd xmlns=''>#{M2yFast.configuration.password}</pwd>
+          </alterar_vencimento_fatura>
+        </Body>
+      </Envelope>"
+    end
   end
 end

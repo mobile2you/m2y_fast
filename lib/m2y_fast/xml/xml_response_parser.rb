@@ -197,5 +197,39 @@ module M2yFast
       { error: true }
     end
 
+    def self.change_invoice_due_date_response(response)
+      binding.pry 
+      begin
+        xml_str = response[:alterar_vencimento_fatura_response][:return]
+        codigo_retorno = xml_str.split("<codigo_retorno>").last.split("</codigo_retorno>").first.to_i
+        cod_ret = xml_str.split("<cod_ret>").last.split("</cod_ret>").first.to_i
+        error = (codigo_retorno.eql?(0) && cod_ret.eql?(0)) ? false : true
+        error_message = error_message_for_card_due_date_change(cod_ret)
+        binding.pry
+        {error: error, code: codigo_retorno, cod_ret: cod_ret, error_message: error_message}
+      rescue
+        {error: true}
+      end
+    end
+
+
+    def self.error_message_for_card_due_date_change(cod_ret)
+      case cod_ret
+      when 0
+        return 'A solicitação de alteração da data de vencimento de suas faturas foi recebida com sucesso, em breve a nova data de vencimento estará em vigor. Dependendo do dia escolhido, sua próxima fatura ainda poderá vir com o vencimento anterior. '
+      when 88
+        return 'Código de vencimento inválido'
+      # when 89
+      #   return 'Não permite alteração devido quantidade de dias necessárias entre uma alteração de vencimento' isso aqui nao é validado 
+      when 90
+        return 'Não permite alteração devido a carência'
+      when 91
+        return 'Estado da conta não permite alteração'
+      when 14
+        return 'Não existe cartão'
+      when 96
+        return 'Erro de sistema'
+      end
+    end
   end
 end
